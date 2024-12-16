@@ -7,8 +7,10 @@ void MakeBinFromFile(std::string input_file, std::string output_file_path, int64
     int64_t res;
     if(file.is_open()){
         while(file.read((char*) &res, sizeof(int64_t))){
-            res ^= mask;
-            outfile.write((char*) &res, sizeof(res));
+            if(file.gcount() == sizeof(int64_t)){
+                res ^= mask;
+                outfile.write((char*) &res, sizeof(res));
+            }
         }
         file.close();
         outfile.close();
