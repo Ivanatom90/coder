@@ -28,7 +28,7 @@ void Delay(int n){
 }
 
 void CheckFileSize(const std::string& name){
-    std::fstream file(name, std::ios_base::binary | std::ios_base::in | std::ios_base::out);
+    std::fstream file(name, std::ios_base::binary |  std::ios_base::in | std::ios_base::out);
     if(!file.is_open()){
         std::cout<<"file not open"<<std::endl;
         return;
@@ -37,11 +37,18 @@ void CheckFileSize(const std::string& name){
     begin =  file.tellg();
     file.seekg(0, std::ios_base::end);
     end = file.tellg();
-    char res = 0;
-    while((end - begin) % 8 != 0){
-        file.write((char*) &res, sizeof(res));
+    size_t j = (end - begin)%8;
+
+    if(j % 8 != 0){
+        char * ch = new char[8-j];
+        for(size_t i = 0; i< (8-j) ; i++){
+            ch[i] = 0;
+        }
         file.seekg(0, std::ios_base::end);
+        file.write(ch, 8-j);
         end = file.tellg();
+        delete [] ch;
     }
-    file.close();
+     file.close();
+
 }
