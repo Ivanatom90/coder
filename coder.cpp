@@ -1,6 +1,7 @@
 #include "coder.h"
 
 void MakeBinFromFile(std::string input_file, std::string output_file_path, int64_t mask){
+    CheckFileSize(input_file);
     std::string str;
     std::ifstream file(input_file, std::ios_base::binary);
     std::ofstream outfile(output_file_path, std::ios_base::binary);
