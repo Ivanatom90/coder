@@ -28,7 +28,7 @@ void Delay(int n){
 }
 
 void CheckFileSize(const std::string& name){
-    std::fstream file(name, std::ios_base::binary |  std::ios_base::in | std::ios_base::out);
+    std::fstream file(name, std::ios_base::binary |  std::ios_base::in | std::ios_base::app);
     if(!file.is_open()){
         std::cout<<"file not open"<<std::endl;
         return;
